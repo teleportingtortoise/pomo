@@ -1,8 +1,35 @@
 <html>
     <head>
-        <title>            
+        <title>
+            Pomo            
         </title>
+        <script src="js/countdowntimer.js"></script>
     </head>
-    <body>        
+    <body>
+        <div> testing
+            <p id="spanner"></p>
+            this is a test
+        </div>
+        <script>
+            window.onload = function() {
+                var display = document.querySelector('#spanner'),
+                    timer = new CountDownTimer(5);
+
+                timer.onTick(format).onTick(restart).start();
+
+                function restart() {
+                    if (this.expired()) {
+                        setTimeout(function() { timer.start(); }, 1000);
+                    }
+                }
+
+                function format(minutes, seconds) {
+                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                    seconds = seconds < 10 ? "0" + seconds : seconds;
+                    display.textContent = minutes + ':' + seconds;
+                    display.style.backgroundColor = '#' + seconds * 10 + '0000'
+                }
+            }
+        </script>        
     </body>
 </html>
