@@ -3,31 +3,57 @@
         <title>
             Pomo            
         </title>
-        <script src="js/countdowntimer.js"></script>
+        <script src="js/timer.js"></script>
+        <script src="js/math.js"></script>
+        <style>
+            * {margin: 0; padding: 0;}
+
+            body {
+                margin: 2em;
+                background-color: lightgrey;
+            }
+
+            #container {
+                width: 100%;
+                height: 33%;
+                overflow: hidden;
+                margin: 0 auto;
+                border-radius: 2em;
+                border: 2pt inset darkgrey;
+                background-color: black;
+                color: white;
+                text-align: end;
+            }
+
+            #spanner {
+                height: 100%;
+            }
+        </style>
     </head>
     <body>
-        <div> testing
-            <p id="spanner"></p>
-            this is a test
-        </div>
+        <div id="container">
+            <div id="spanner"></div>
+        </div>        
         <script>
+            var timeAmountS = 60 * 3,
+            timeAmountM = timeAmountS * 1000;
+
             window.onload = function() {
                 var display = document.querySelector('#spanner'),
-                    timer = new CountDownTimer(5);
+                timer = new Timer(timeAmountS, 17);
 
-                timer.onTick(format).onTick(restart).start();
+                timer.addAction(format).addAction(restart).run();
 
                 function restart() {
-                    if (this.expired()) {
-                        setTimeout(function() { timer.start(); }, 1000);
+                    if (timer.elapsedS >= timer.duration) {
+                        setTimeout(function() { timer.run(); }, 1000);
                     }
                 }
 
-                function format(minutes, seconds) {
-                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                    seconds = seconds < 10 ? "0" + seconds : seconds;
-                    display.textContent = minutes + ':' + seconds;
-                    display.style.backgroundColor = '#' + seconds * 10 + '0000'
+                function format() {
+                    display.innerText = ('00' + ((timer.remainingS / 60) | 0)).slice(-2) + ':' + ('00' + (timer.remainingS % 60)).slice(-2);
+                    display.style.width = Math.map(timer.elapsedM,0,timeAmountM,0,100) + '%'
+                    display.style.backgroundColor = 'rgb(' + Math.map(timer.elapsedM,0,timeAmountM,0,255) + ',' + Math.map(timer.elapsedM,0,timeAmountM,255,0) + ',' + '000)'
                 }
             }
         </script>        
