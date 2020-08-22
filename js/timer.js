@@ -1,13 +1,13 @@
 // Base function, just calls variable init
 function Timer(duration, interval) {
+    this.tickActions = [];
+    this.endActions = [];
     this.duration = duration;
     this.interval = interval || 1000;
     this.running = false;
 
     this.varInit = function() {
         console.log("Initializing variables...")
-        this.tickActions = [];
-        this.endActions = [];
         this.start = Date();
         this.current = Date();
         this.elapsedM = 0;
