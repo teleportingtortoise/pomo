@@ -1,15 +1,22 @@
+// Base function, just calls variable init
 function Timer(duration, interval) {
     this.duration = duration;
     this.interval = interval || 1000;
-    this.tickActions = [];
-    this.endActions = [];
-    this.start = Date();
-    this.current = Date();
-    this.elapsedM = 0;
-    this.elapsedS = 0;
-    this.remainingM = 0;
-    this.remainingS = 0;
     this.running = false;
+
+    this.varInit = function() {
+        console.log("Initializing variables...")
+        this.tickActions = [];
+        this.endActions = [];
+        this.start = Date();
+        this.current = Date();
+        this.elapsedM = 0;
+        this.elapsedS = 0;
+        this.remainingM = 0;
+        this.remainingS = 0;
+    };
+
+    this.varInit();
 }
 
 // Add functions to an action array
@@ -24,6 +31,7 @@ Timer.prototype.addAction = function(func, array = this.tickActions) {
 Timer.prototype.tick = function() {
     // Give access to dotthis
     var that = this;
+
     // Name the setInterval so we can clear it later (make kill function later)
     var mytick = setInterval(function() {
         // Stop the timer when the time is up
@@ -34,10 +42,18 @@ Timer.prototype.tick = function() {
             return;
         }
 
+        //console.log(`start time: ${that.start}`)
+        //console.log(`current time: ${that.current}`)
+        //console.log(`elapsed mili: ${that.elapsedM}`)
+        //console.log(`elapsed secs: ${that.elapsedS}`)
+        //console.log(`remaining mili: ${that.remainingM}`)
+        //console.log(`remaining secs: ${that.remainingS}`)
+//
+        // Update all the various tracked times
         that.current = Date.now();
-        that.remainingM = ((that.duration - ((that.current - that.start) / 1000))*1000 | 0);
-        that.remainingS = that.duration - (((that.current - that.start) / 1000) | 0);
-        that.elapsedM = -(that.duration - (that.current - that.start));
+        that.remainingM = that.current - that.start;
+        that.remainingS = that.duration - ((that.remainingM / 1000) | 0);
+        that.elapsedM = -(that.duration - that.remainingM);
         that.elapsedS = that.duration - that.remainingS;
 
         // Run tick actions
@@ -49,12 +65,24 @@ Timer.prototype.tick = function() {
 };
 
 
-// Init and start the timer, ignore if running
+// Reinit some values and start the timer, ignore if already running
 Timer.prototype.run = function() {
     if (this.running) {
         console.log("Already running.");
         return;
     }
+
+    this.varInit();
+
+    console.log(`${this.tickActions}`)
+    console.log(`${this.endActions}`)
+    console.log(`${this.start}`)
+    console.log(`${this.current}`)
+    console.log(`${this.elapsedM}`)
+    console.log(`${this.elapsedS}`)
+    console.log(`${this.remainingM}`)
+    console.log(`${this.remainingS}`)
+    console.log(`${this.running}`)
 
     this.running = true;
     this.start = Date.now();
