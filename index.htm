@@ -6,6 +6,11 @@
         <script src="js/timer.js"></script>
         <script src="js/math.js"></script>
         <style>
+            @font-face {
+                font-family: pointfree;
+                src: url('font/pointfree.ttf');
+            }
+
             * {margin: 0; padding: 0;}
 
             html {
@@ -14,19 +19,21 @@
             }
 
             body {
-                background-color: lightgrey;
+                background-color: darkcyan;
             }
 
             #container {
                 position: relative;
-                width: 95vw;
+                width: 95vw - 1em;
                 height: 15vh;
                 margin: 2.5vw;
                 overflow: hidden;
-                border-radius: 2em;
-                border: 0.5vw inset darkgrey;
+                border-radius: 5em;
+                border: 1em solid white;
                 background-color: black;
-                color: white;
+
+                /* control em size */
+                font-size: 1vw;
             }
 
             #counter {
@@ -36,6 +43,8 @@
                 text-align: center;                
                 line-height: 15.0vh;
                 font-size: 10.0vh;
+                font-family: "pointfree", sans-serif;
+                color: white;
 
                 z-index: 1;
             }
@@ -70,10 +79,9 @@
                 }
 
                 function format() {
-                    console.log(timer.remainingS)
                     counter.innerText = ('00' + ((timer.remainingS / 60) | 0)).slice(-2) + ':' + ('00' + (timer.remainingS % 60)).slice(-2);
                     display.style.width = Math.map(timer.elapsedM,0,timeAmountM,0,100) + '%'
-                    display.style.backgroundColor = 'rgb(' + Math.map(timer.elapsedM,0,timeAmountM,0,255) + ',' + Math.map(timer.elapsedM,0,timeAmountM,255,0) + ',' + '000)'
+                    display.style.backgroundColor = 'rgb(' + Math.map(timer.elapsedM,0,timeAmountM,96,216) + ',' + Math.map(timer.elapsedM,0,timeAmountM,216,64) + ',' + '032)'
                 }
             }
         </script>        

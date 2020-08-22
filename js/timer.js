@@ -1,23 +1,21 @@
-// Base function, just calls variable init
+// Base function, init the important stuff
 function Timer(duration, interval) {
     this.tickActions = [];
     this.endActions = [];
     this.duration = duration;
     this.interval = interval || 1000;
     this.running = false;
-
-    this.varInit = function() {
-        console.log("Initializing variables...")
-        this.start = Date();
-        this.current = Date();
-        this.elapsedM = 0;
-        this.elapsedS = 0;
-        this.remainingM = 0;
-        this.remainingS = 0;
-    };
-
-    this.varInit();
+    this.start = Date();
+    this.current = Date();
 }
+
+// Counter init function
+Timer.prototype.counterInit = function() {
+    this.elapsedM = 0;
+    this.elapsedS = 0;
+    this.remainingM = 0;
+    this.remainingS = 0;
+};
 
 // Add functions to an action array
 Timer.prototype.addAction = function(func, array = this.tickActions) {
@@ -38,17 +36,9 @@ Timer.prototype.tick = function() {
         if (that.elapsedS >= that.duration) {
             clearInterval(mytick);
             that.running = false;
-            console.log("Time is up!");
             return;
         }
 
-        //console.log(`start time: ${that.start}`)
-        //console.log(`current time: ${that.current}`)
-        //console.log(`elapsed mili: ${that.elapsedM}`)
-        //console.log(`elapsed secs: ${that.elapsedS}`)
-        //console.log(`remaining mili: ${that.remainingM}`)
-        //console.log(`remaining secs: ${that.remainingS}`)
-//
         // Update all the various tracked times
         that.current = Date.now();
         that.remainingM = that.current - that.start;
@@ -68,24 +58,12 @@ Timer.prototype.tick = function() {
 // Reinit some values and start the timer, ignore if already running
 Timer.prototype.run = function() {
     if (this.running) {
-        console.log("Already running.");
         return;
     }
 
-    this.varInit();
-
-    console.log(`${this.tickActions}`)
-    console.log(`${this.endActions}`)
-    console.log(`${this.start}`)
-    console.log(`${this.current}`)
-    console.log(`${this.elapsedM}`)
-    console.log(`${this.elapsedS}`)
-    console.log(`${this.remainingM}`)
-    console.log(`${this.remainingS}`)
-    console.log(`${this.running}`)
+    this.counterInit();
 
     this.running = true;
     this.start = Date.now();
-    console.log(`Running ${this.running}. Started on ${this.start}`)
     this.tick();
 };
