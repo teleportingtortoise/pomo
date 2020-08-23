@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
     <head>
         <title>
             Pomo            
@@ -9,14 +10,20 @@
         <script src="js/pomo.js"></script>
         <link rel="stylesheet" href="css/main.css">
     </head>
+
     <body>
-        <div id="bar">
-            <div id="counter"></div>
-            <div id="spanner"></div>
+        <div id="context1">
+            <div id="bar">
+                <div id="counter"></div>
+                <div id="spanner"></div>
+            </div>
+            <div id="input">
+                <form>
+                    <input type="text" id="input_id" value="">
+                    <input type="button" value="Submit" onclick="setTime()">
+                    <input type="button" value="Start" onClick="timer.run()">
+                </form>
+            </div>
         </div>
-        <form>
-            <input type="text" id="input_id" value="">
-            <input type="button" value="Submit" onclick="setTime()" />
-        </form>
     </body>
 </html>

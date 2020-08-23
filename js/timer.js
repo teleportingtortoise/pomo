@@ -58,6 +58,7 @@ Timer.prototype.tick = function() {
 // Reinit some values and start the timer, ignore if already running
 Timer.prototype.run = function() {
     if (this.running) {
+        console.log("Already running.")
         return;
     }
 
