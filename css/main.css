@@ -1,0 +1,48 @@
+@font-face {
+    font-family: pointfree;
+    src: url('font/pointfree.ttf');
+}
+
+* {margin: 0; padding: 0;}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: darkcyan;
+}
+
+#bar {
+    position: relative;
+    width: 95vw - 1em;
+    height: 15vh;
+    margin: 2.5vw;
+    overflow: hidden;
+    border-radius: 5em;
+    border: 1em solid white;
+    background-color: black;
+
+    /* control em size */
+    font-size: 1vw;
+}
+
+#counter {
+    position: absolute;
+    height: 15vh;
+    width: 95vw;
+    text-align: center;                
+    line-height: 15.0vh;
+    font-size: 10.0vh;
+    font-family: "pointfree", sans-serif;
+    color: white;
+
+    z-index: 1;
+}
+
+#spanner {
+    height: 100%;
+
+    z-index: 2;
+}
